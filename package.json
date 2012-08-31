@@ -1,0 +1,15 @@
+{
+  "name": "base64Stream",
+  "description": "Correctly encode any streamed content into base64",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cjblomqvist/base64Stream.git"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": ">=0.6.0"
+  }
+}
