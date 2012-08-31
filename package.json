@@ -1,5 +1,5 @@
 {
-  "name": "base64Stream",
+  "name": "base64stream",
   "description": "Correctly encode any streamed content into base64",
   "version": "0.1.0",
   "repository": {
