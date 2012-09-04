@@ -110,8 +110,8 @@ BufferedStreamToBase64.prototype.emitAllBufferedChunks = function () {
 
         if(!chunk) return true;
 
-        this.size -= chunk.length;
-        self.emit('data', this.getBase64SizedChunk(chunk).toString('base64'));
+        self.size -= chunk.length;
+        self.emit('data', self.getBase64SizedChunk(chunk).toString('base64'));
         return emitChunk();
       };
 
