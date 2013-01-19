@@ -14,6 +14,7 @@ var BufferedStreamToBase64 = function (limit) {
   this.writable = true;
   this.readable = true;
   this.paused = false;
+  this.sentOdd = false;
 }
 util.inherits(BufferedStreamToBase64, stream.Stream);
 BufferedStreamToBase64.prototype.pipe = function (dest, options) {
@@ -47,8 +48,9 @@ BufferedStreamToBase64.prototype.write = function (chunk) {
 BufferedStreamToBase64.prototype.end = function () {
   if(!this.chunks.length && !this.paused) {
     // If there are any remaining data not encoded, we need to encode it and send it now
-    if(Buffer.isBuffer(this.oddBytes)) {
+    if(Buffer.isBuffer(this.oddBytes) && !this.sentOdd) {
       this.emit('data', this.oddBytes.toString('base64'));
+	  this.sentOdd = true;
     }
 
     // In case a pause is triggered after oddBytes been emitted, we can't end just yet
@@ -117,8 +119,9 @@ BufferedStreamToBase64.prototype.emitAllBufferedChunks = function () {
 
   if(emitChunk() && self.ended) {
     // If there are any remaining data not encoded, we need to encode it and send it now
-    if(Buffer.isBuffer(this.oddBytes)) {
+    if(Buffer.isBuffer(this.oddBytes)&& !this.sentOdd) {
       this.emit('data', this.oddBytes.toString('base64'));
+	  this.sentOdd =true;
       // In case a pause is triggered after oddBytes been emitted, end here
       if(!self.paused) return;
     }
