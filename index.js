@@ -96,8 +96,8 @@ BufferedStreamToBase64.prototype.getBase64SizedChunk = function (chunk) {
 
   // Split data into one part which is possible to Base64 encode (without any empty encoding) and one part we wait to encode until next write
   if(remaining) {
-    chunk = chunk.slice(0, chunk.length - remaining);
     this.oddBytes = chunk.slice(chunk.length - remaining);
+    chunk = chunk.slice(0, chunk.length - remaining);
   }
 
   return chunk;
